@@ -1,0 +1,111 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+-class TodoItem {
+    -String : name
+    -Date : dueDate
+    -String : description
+    -Boolean : completedMark
+    -String : itemID
+    +TodoItem(name, dueDate, description)
+    +editDueDate(newDueDate)
+    +editDescription(newDescription)
+    +setItemID(ID)
+    +changeCompletedMark(flag)
+
+    +getID() : String
+    +getName() : String
+    +getDueDate() : String
+    +getDescription() : String
+}
+  TodoList o--> TodoItem
+  TodoController o--> TodoList
+
+
++class TodoList {
+    -todoList : ObservableList<TodoItem> list:
+    -fName : String
+    -title : String
+
+    -int getPos(itemID) : int
+
+    +TodoList(gList, fName, title)
+    +get(itemID) : TodoItem
+    +addItem(TodoItem)
+    +changeCompletedMark(itemID)
+    +delete(itemID)
+    +editfName(name)
+    +deleteList()
+    +printFile()
+    +add(name, description, dueDate)
+    +editTitle(title)
+
+    +editDueDate(itemID, date)
+    +editDescription(itemID, description)
+    +getList() : ObservableList<TodoItem>
+    +getfName() : String
+
+
+    +getIncompletedItems() : ObservableList<TodoItem>
+    +getCompletedItems() : ObservableList<TodoItem>
+
+
+
+}
+
++class OpeningScreenController implements Initializable {
+
+    -String : fName
+    -Button : createNewList;
+    -Button : exportList;
+    -Button : importList;
+    -ChoiceBox<String> : listChoice;
+    -TextField : newList;
+    -Button : openList;
+
+    -checkImport(importFile) : boolean
+    +handleCreate()
+    +handleOpening()
+    +handleImport()
+    +handleExport()
+
+    +getFileName() : String
+    +initialize(URL location, ResourceBundle resources)
+
+}
++class TodoController implements Initializable {
+    -todoList : list
+    -completedItems : ObservableList<TodoItem>
+    -addB : Button
+    -deleteB : Button
+    -date : TextField
+    -description : TextField
+    -name : TextField
+    -table : TableView<TodoItem>
+    -todoDate : TableColumn<TodoItem, String>
+    -TodoDescription : TableColumn<TodoItem, String>
+    -todoCompletedMarker : TableColumn<TodoItem, Boolean>
+    -todoItem : TableColumn<TodoItem, String>
+    -exitMenu : Menu
+    -menuCompletedItems : MenuItem
+    -deleteList : MenuItem
+    -changeTitle : MenuItem
+    -viewAll: MenuItem
+    +handleDeleteList()
+    +handleTitle()
+    +handleMarkers()
+    +handleAddButton()
+    +handleDeleteButton()
+    +handleExit()
+    +handleTextChange()
+    +handleViewAll()
+    +initialize(URL location, ResourceBundle resources)
+
+
+}
+Interface Initializable
+note left: JavaFX Interface
+
+
+
+@enduml
